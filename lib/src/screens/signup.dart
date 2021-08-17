@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ui_designs/src/core/constant/custom_box_decoration.dart';
+import 'package:ui_designs/src/core/constant/custom_form_decoration.dart';
+import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
 import 'package:ui_designs/src/screens/login.dart';
+import 'package:ui_designs/src/widgets/custom_submit_button.dart';
 import 'package:ui_designs/src/widgets/custom_text_field.dart';
 
 class SignUp extends StatelessWidget {
@@ -13,40 +15,16 @@ class SignUp extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
-        decoration: customBoxDecoration(),
+        decoration: customHeaderDecoration(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 80,
-            ),
-            Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Sign up",
-                      style: TextStyle(color: Colors.white, fontSize: 40),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Create an account, its free",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    )
-                  ],
-                )),
+            SizedBox(height: 80,),
+            Padding(padding: EdgeInsets.all(10), child: customHeaderTextWidget("Sign Up", "Create and Account, its free")),
             SizedBox(height: 10),
             Expanded(
               child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(60),
-                    topRight: Radius.circular(60),
-                  )),
+              decoration: customDesignRadius(),
               child: Padding(
                 padding: EdgeInsets.all(25),
                 child: Column(
@@ -55,16 +33,7 @@ class SignUp extends StatelessWidget {
                       height: 20,
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(225, 95, 27, .3),
-                              blurRadius: 20,
-                              offset: Offset(0, 10),
-                            )
-                          ]),
+                      decoration: customFormDecoration(),
                       child: Column(
                         children: <Widget>[
                           CustomTextField(hintText: "Email or Phone Number"),
@@ -113,40 +82,7 @@ class SignUp extends StatelessWidget {
                     SizedBox(
                       height: 25,
                     ),
-
-                    // Container(
-                    //   height: 50,
-                    //   margin: EdgeInsets.symmetric(horizontal: 50),
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(50),
-                    //     color: Colors.orange[900]
-                    //   ),
-                    //   child: Center(
-                    //     child: Text("Login", style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.bold)),
-                    //   ),
-                    // )
-
-                    Container(
-                      height: 50,
-                      width: double.infinity,
-                      margin: EdgeInsets.symmetric(horizontal: 50),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Submit",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.orange[900],
-                          onPrimary: Colors.white,
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(20.0),
-                          ),
-                        ),
-                      ),
-                    ),
-
+                    SubmitButton(buttonText: "Login"),
                     SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final Function onTap;
+  final Widget suffix;
 
-  const CustomTextField({Key key, @required this.hintText, this.onTap})
+
+  const CustomTextField({Key key, @required this.hintText, this.onTap, this.suffix})
       : super(key: key);
 
   @override
@@ -19,6 +21,7 @@ class CustomTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.grey),
           border: InputBorder.none,
+          suffixIcon: suffix,
         ),
       ),
     );
