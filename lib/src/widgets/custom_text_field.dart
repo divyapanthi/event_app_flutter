@@ -5,14 +5,15 @@ class CustomTextField extends StatelessWidget {
   final Function onTap;
   final Widget suffix;
 
+  final bool obscureText;
 
-  const CustomTextField({Key key, @required this.hintText, this.onTap, this.suffix})
+  const CustomTextField({Key key, @required this.hintText, this.onTap, this.suffix, this.obscureText})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey[200]))),
       child: TextField(

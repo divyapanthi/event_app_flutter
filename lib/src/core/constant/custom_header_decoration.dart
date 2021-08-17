@@ -18,7 +18,7 @@ customHeaderTextWidget(text1, text2){
         style: TextStyle(color: Colors.white, fontSize: 40),
       ),
       SizedBox(
-        height: 10,
+        height: 5,
       ),
       Text(
         "$text2",

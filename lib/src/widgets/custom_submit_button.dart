@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class SubmitButton extends StatelessWidget {
   final String buttonText;
+  final Function onPressed;
 
-  const SubmitButton({Key key, @required this.buttonText}) : super(key: key);
+  const SubmitButton({Key key, @required this.buttonText, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 50),
+      margin: EdgeInsets.symmetric(horizontal: 70),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed??(){},
         child: Text(
           "$buttonText",
           style: TextStyle(

@@ -39,31 +39,18 @@ class Login extends StatelessWidget {
                           child: Column(
                             children: <Widget>[
                               CustomTextField(hintText: "Email or Phone Number"),
-                              CustomTextField(hintText: "Password"),
+                              CustomTextField(hintText: "Password",obscureText: true,),
                             ],
                           ),
                         ),
                         SizedBox(height: 25,),
                         GestureDetector(
-                          onTap: (){
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return ForgotPassword();
-                            },
-                            shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(50),
-                            ),
-                            ),
-                          );// ModalBottomSheet
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (ctx) {
+                              return ForgotPassword();
+                            }));
                           },
-                          // onTap: () {
-                          //   Navigator.of(context)
-                          //       .push(MaterialPageRoute(builder: (ctx) {
-                          //     return ForgotPassword();
-                          //   }));
-                          // },
                           child: Text(
                             "Forgot Password?",
                             style: TextStyle(color: Colors.grey, decoration: TextDecoration.underline),

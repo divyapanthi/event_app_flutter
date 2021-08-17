@@ -19,28 +19,29 @@ class SignUp extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 80,),
+            SizedBox(height: 50,),
             Padding(padding: EdgeInsets.all(10), child: customHeaderTextWidget("Sign Up", "Create and Account, its free")),
             SizedBox(height: 10),
             Expanded(
               child: Container(
               decoration: customDesignRadius(),
               child: Padding(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.all(30),
                 child: Column(
                   children: <Widget>[
                     SizedBox(
-                      height: 20,
+                      height: 5,
                     ),
                     Container(
                       decoration: customFormDecoration(),
                       child: Column(
                         children: <Widget>[
-                          CustomTextField(hintText: "Email or Phone Number"),
+                          CustomTextField(hintText: "First Name"),
+                          CustomTextField(hintText: "Last Name"),
+                          CustomTextField(hintText: "Email"),
                           CustomTextField(hintText: "Password"),
                           CustomTextField(hintText: "Confirm Password"),
                           Container(
-                              padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   border: Border(
                                       bottom:
