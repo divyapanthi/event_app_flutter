@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ui_designs/src/core/constant/otp_input_decoration.dart';
-import 'package:ui_designs/src/widgets/custom_submit_button.dart';
 
 class OTPForm extends StatefulWidget {
   const OTPForm({Key key}) : super(key: key);

@@ -3,7 +3,9 @@ import 'package:ui_designs/src/core/constant/custom_form_decoration.dart';
 import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
 import 'package:ui_designs/src/screens/otp_screen.dart';
 import 'package:ui_designs/src/widgets/custom_submit_button.dart';
-import 'package:ui_designs/src/widgets/custom_text_field.dart';
+import 'package:ui_designs/src/widgets/custom_textform_field.dart';
+import '../core/validators/global_validator.dart';
+
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({Key key}) : super(key: key);
@@ -47,7 +49,11 @@ class ForgotPassword extends StatelessWidget {
                             decoration: customFormDecoration(),
                             child: Column(
                               children: <Widget> [
-                                CustomTextField(hintText: "Enter your email", suffix: Icon(Icons.email_rounded, color: Colors.orange[900],),)
+                                CustomTextFormField(
+                                  hintText: "Enter your email",
+                                  suffixIcon: Icon(Icons.email_rounded,
+                                    color: Colors.orange[900],),
+                                  validator: GlobalValidator.validateEmail,)
                               ],
                             ),
                           ),

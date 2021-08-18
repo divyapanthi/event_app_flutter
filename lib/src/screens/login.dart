@@ -5,11 +5,27 @@ import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
 import 'package:ui_designs/src/screens/forgot_password.dart';
 import 'package:ui_designs/src/screens/signup.dart';
 import 'package:ui_designs/src/widgets/custom_submit_button.dart';
-import 'package:ui_designs/src/widgets/custom_text_field.dart';
+import 'package:ui_designs/src/widgets/custom_textform_field.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../core/validators/global_validator.dart';
 
-class Login extends StatelessWidget {
+
+class Login extends StatefulWidget {
   const Login({Key key}) : super(key: key);
+
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final formkey = GlobalKey<FormState>();
+  String name;
+  String email;
+  String password;
+
+  bool obscureText = true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +50,36 @@ class Login extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          decoration: customFormDecoration(),
-                          child: Column(
-                            children: <Widget>[
-                              CustomTextField(hintText: "Email or Phone Number"),
-                              CustomTextField(hintText: "Password",obscureText: true,),
-                            ],
+                        Form(
+                          key: formkey,
+                          child: Container(
+                            decoration: customFormDecoration(),
+                            child: Column(
+                              children: <Widget>[
+                                CustomTextFormField(
+                                  hintText: "Email or Phone Number",
+                                  keyboardType: TextInputType.emailAddress,
+                                  onChanged: (String val){},
+                                  validator: GlobalValidator.validateEmail,
+                                  onSaved: (String val){email=val;},
+                                ),
+                                CustomTextFormField(
+                                  hintText: "Password",
+                                  obscureText: obscureText,
+                                  suffixIcon: IconButton(
+                                    icon: Icon(Icons.visibility),
+                                    onPressed: (){
+                                      setState(() {
+                                        obscureText = !obscureText;
+                                      });
+                                    },
+
+                                  ),
+                                  onChanged: (String val){},
+                                  validator: GlobalValidator.validatePassword,
+                                  onSaved: (String val){password= val;},
+                                )],
+                            ),
                           ),
                         ),
                         SizedBox(height: 25,),
@@ -61,7 +100,10 @@ class Login extends StatelessWidget {
                           height: 30,
                         ),
 
-                        SubmitButton(buttonText: "Login"),
+                        SubmitButton(buttonText: "Login", onPressed: (){
+                          formkey.currentState.validate();
+
+                        },),
 
                         SizedBox(height: 16),
                         Row(
