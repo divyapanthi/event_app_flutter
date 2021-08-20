@@ -40,8 +40,7 @@ class _SignUpState extends State<SignUp> with GlobalValidator {
                     "Sign Up", "Create an Account, its free")),
             SizedBox(height: 2),
             Expanded(
-              child: SingleChildScrollView(
-                child: Form(
+              child: Form(
                   key: formkey,
                   child: Container(
                     decoration: customDesignRadius(),
@@ -123,7 +122,7 @@ class _SignUpState extends State<SignUp> with GlobalValidator {
                   ),
                 ),
             ),
-              ))
+              ),
           ],
         ),
       ),

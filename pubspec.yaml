@@ -33,6 +33,14 @@ dependencies:
   url_launcher: ^6.0.9
   flutter_svg: ^0.22.0
 
+  #Google Sign In
+  firebase_auth: ^3.0.2
+  firebase_core: ^1.5.0
+  google_sign_in: ^5.0.7
+
+  #State Management
+  provider: ^5.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

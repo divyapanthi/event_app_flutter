@@ -1,11 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ui_designs/src/provider/auth_provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final user = FirebaseAuth.instance.currentUser; //user that is currently signed in
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Logged In"),
+        centerTitle: true,
+        actions: [
+          TextButton(
+              child: Text("Logged Out"),
+              onPressed: (){
+                final provider = Provider.of<AuthProvider>(context, listen: false);
+                provider.googleLogOut();
+              },
+          )
+        ],
+      ),
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
@@ -15,16 +33,24 @@ class ProfileScreen extends StatelessWidget {
           children: <Widget> [
             Column(
               children: [
-                SizedBox(height: 80,),
-                Text("Profile", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.orange[900]),),
-                SizedBox(
-                  height: 70,
-                  width: 80,
-                  child: Stack(
-                    fit: StackFit.expand,
+                SizedBox(height: 60,),
+                Container(
+                  child: Column(
                     children: [
+                      Text("Profile", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.orange[900]),),
+                      SizedBox(height: 22,),
                       CircleAvatar(
-                        foregroundImage: NetworkImage("https://www.pngitem.com/pimgs/m/146-1468843_profile-icon-orange-png-transparent-png.png"),
+                        radius: 40,
+                        backgroundImage: NetworkImage(user.photoURL),
+                      ),
+                      SizedBox(height: 22,),
+                      Text(
+                        'Name: ' + user.displayName,
+                        style: TextStyle(color: Colors.black54, fontSize: 18),
+                      ),
+                      Text(
+                        'Name ' + user.email,
+                        style: TextStyle(color: Colors.black54, fontSize: 14),
                       )
                     ],
                   ),
