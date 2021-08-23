@@ -16,11 +16,13 @@ class ProfileScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           TextButton(
-              child: Text("Logged Out"),
+              child: Text("Log Out", style: TextStyle(color: Colors.white),),
               onPressed: (){
                 final provider = Provider.of<AuthProvider>(context, listen: false);
-                provider.googleLogOut();
-              },
+                  provider.facebookLogout();
+                  provider.googleLogout();
+
+                },
           )
         ],
       ),
@@ -49,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                         style: TextStyle(color: Colors.black54, fontSize: 18),
                       ),
                       Text(
-                        'Name ' + user.email,
+                        'Email: ' + user.email,
                         style: TextStyle(color: Colors.black54, fontSize: 14),
                       )
                     ],

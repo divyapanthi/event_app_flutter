@@ -6,12 +6,9 @@ import 'package:ui_designs/src/core/constant/custom_form_decoration.dart';
 import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
 import 'package:ui_designs/src/provider/auth_provider.dart';
 import 'package:ui_designs/src/screens/forgot_password.dart';
-import 'package:ui_designs/src/screens/home_screen.dart';
-import 'package:ui_designs/src/screens/profile_screen.dart';
 import 'package:ui_designs/src/screens/signup.dart';
 import 'package:ui_designs/src/widgets/custom_submit_button.dart';
 import 'package:ui_designs/src/widgets/custom_textform_field.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../core/validators/global_validator.dart';
 
 class Login extends StatefulWidget {
@@ -27,9 +24,10 @@ class _LoginState extends State<Login> {
   String email;
   String password;
 
-  bool obscureText = true;
+  bool obscureText=true;
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -147,8 +145,10 @@ class _LoginState extends State<Login> {
                           child: IconButton(
                             icon:
                                 SvgPicture.asset("assets/images/facebook.svg"),
-                            onPressed: () async =>
-                                await launch("https://www.facebook.com"),
+                              onPressed: () async =>
+                              await Provider.of<AuthProvider>(context,
+                                  listen: false)
+                                  .signUpWithFacebook()),
                           ),
                           // child: SignInButton(
                           //   Buttons.Facebook,
@@ -156,7 +156,6 @@ class _LoginState extends State<Login> {
                           //   onPressed: () async =>
                           //       await launch("https://www.facebook.com"),
                           // ),
-                        )
                       ],
                     ),
                     SizedBox(
