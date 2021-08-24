@@ -21,6 +21,9 @@ class App extends StatelessWidget {
       create: (context) => AuthProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: Colors.orange[900],
+          ),
           home: AuthService().handleAuthState(),
       ),
     );

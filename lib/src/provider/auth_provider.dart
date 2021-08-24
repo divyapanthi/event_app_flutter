@@ -2,40 +2,48 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ui_designs/src/screens/login.dart';
 
 
-class AuthProvider extends ChangeNotifier{
+class AuthProvider extends ChangeNotifier {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //logic after we click google sign in
+
+  Stream<User> authStateChanges() => _auth.authStateChanges();
+
+  User _currentUser;
+
+  User get currentUser => _currentUser;
+
   final _googleSignIn = GoogleSignIn();
   final _facebookLogin = FacebookLogin();
 
+  bool _busy = false;
+  bool get busy => _busy;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Map facebookUserData;
-
-
+  void setBusy(bool val){
+    _busy = val;
+    notifyListeners();
+  }
 
   GoogleSignInAccount _googleUser; //field for user that has signed in
-  GoogleSignInAccount get googleUser => _googleUser; //getter method to get the google sign in account
-
+  GoogleSignInAccount get googleUser =>
+      _googleUser; //getter method to get the google sign in account
 
   // this method executes everytime the user click the sign in with google button
-  Future<void> googleLogin() async{
-    try{
+  Future<void> googleLogin() async {
+    try {
       // calling google sign in instance, pop up shows where we select user account
       final googleUser = await _googleSignIn.signIn(); //
-      print('-------------------$googleUser');
 
       //making sure if the user has selected an account
-      if(googleUser == null) return;
+      if (googleUser == null) return;
       // saving user inside our field.
       _googleUser = googleUser;
 
       // authenticating the fetched google user
+      setBusy(true);
       final googleAuth = await googleUser.authentication;
-      print('-------------authentication--------------$googleAuth');
 
       //Create a new credential for signing in with google
       final credential = GoogleAuthProvider.credential(
@@ -44,85 +52,76 @@ class AuthProvider extends ChangeNotifier{
       );
 
       // Once signed in
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      await _auth.signInWithCredential(credential);
+      _currentUser = _auth.currentUser;
+      setBusy(false);
 
-      notifyListeners(); // to update UI
-    }
 
-    catch(e){
+      // to update UI
+    } catch (e) {
       print(e.toString());
     }
   }
 
-
-  Future<UserCredential> signUpWithFacebook() async{
-
-
-    try{
-      var res = await _facebookLogin.logIn(
-          permissions:[
-            FacebookPermission.publicProfile,
-            FacebookPermission.email,
-          ] );
+  Future<void> signUpWithFacebook() async {
+    try {
+      setBusy(true);
+      final response = await _facebookLogin.logIn(permissions: [
+        FacebookPermission.publicProfile,
+        FacebookPermission.email,
+      ]);
 
       //Check result status
-      switch(res.status){
+      switch (response.status) {
         case FacebookLoginStatus.success:
-        // The user is successfully logged in
+          // The user is successfully logged in
 
-        // Send access token to server for validation and auth
-          final FacebookAccessToken fbToken = res.accessToken;
-          final AuthCredential authCredential = FacebookAuthProvider.credential(fbToken.token);
+          // Send access token to server for validation and auth
+          final fbToken = response.accessToken;
+          final userCredential = await _auth.signInWithCredential(
+            FacebookAuthProvider.credential(fbToken.token),
+          );
 
-          print("here is your token, $fbToken");
+          _currentUser = _auth.currentUser;
+          setBusy(false);
+          return userCredential.user;
 
-          final result = await FirebaseAuth.instance.signInWithCredential(authCredential);
-
-          // Get profile data from facebook for use in the app
-          final profile = await _facebookLogin.getUserEmail();
-          // print('Hello, ${profile.name} Your ID: ${profile.userId}');
-
-          // Get user profile image url
-          final imageUrl = await _facebookLogin.getProfileImageUrl(width: 100);
-          print("Your profile image: $imageUrl");
-
-          // fetch user email
-          final email = await _facebookLogin.getUserEmail();
-          //But user can decline permission
-          if(email != null) print('Your email is $email');
-
-          if(fbToken.token != null){
-
-          }
-
-          break;
         case FacebookLoginStatus.cancel:
-        // In case the user cancels the login process
-          print("The user cancelled");
-          break;
+          // In case the user cancels the login process
+          throw FirebaseAuthException(
+            code: 'ERROR_ABORTED_BY_USER',
+            message: "Sign in aborted by user",
+          );
+
         case FacebookLoginStatus.error:
-        // Login procedure failed
-          print('Error while log in: ${res.error}');
-          break;
+          throw FirebaseAuthException(
+            code: 'ERROR_FACEBOOK_LOGIN_FAILED',
+            message: response.error.developerMessage,
+          );
+        default:
+          throw UnimplementedError();
       }
-
-    }catch(error){
-      print (error.toString());
+    } catch (error) {
+      print(error.toString());
     }
-  }
-  Future<void> googleLogout() async{
-    await _googleSignIn.disconnect();
-    await _auth.signOut();
-  }
-
-  Future<void> facebookLogout() async{
-    await _facebookLogin.logOut();
-
-    await _auth.signOut();
-
+    notifyListeners();
   }
 
 
+  Future<User> signUpWithEmailandPassword(String email, String password) async {
+    final userCredential = await _auth.signInWithEmailAndPassword(
+     email: email,
+      password: password,
+    );
+    return userCredential.user;
+  }
 
+
+  Future<void> logout() async {
+    await Future.wait(
+        [_googleSignIn.signOut(), _facebookLogin.logOut(), _auth.signOut()]);
+    _currentUser = null;
+    notifyListeners();
+  }
 
 }
