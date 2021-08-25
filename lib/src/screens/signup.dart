@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_designs/src/core/constant/custom_button_style.dart';
 import 'package:ui_designs/src/core/constant/custom_form_decoration.dart';
 import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
 import 'package:ui_designs/src/screens/login.dart';
@@ -87,6 +88,8 @@ class _SignUpState extends State<SignUp> with GlobalValidator {
                           ),
                           SubmitButton(
                             buttonText: "Submit",
+                            btnStyle: CustomButtonStyle(),
+                            width: double.infinity,
                             onPressed: () {
                               if (!formkey.currentState.validate()) return;
                               formkey.currentState.save();

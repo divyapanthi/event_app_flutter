@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 class SubmitButton extends StatelessWidget {
   final String buttonText;
   final Function onPressed;
+  final double width;
+  final ButtonStyle btnStyle;
 
-  const SubmitButton({Key key, @required this.buttonText, this.onPressed})
+
+
+  const SubmitButton({Key key, @required this.buttonText, this.onPressed, this.width, this.btnStyle})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      width: double.infinity,
+      width: width,
       margin: EdgeInsets.symmetric(horizontal: 70),
       child: ElevatedButton(
         onPressed: onPressed,
@@ -19,13 +23,7 @@ class SubmitButton extends StatelessWidget {
           "$buttonText",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
-        style: ElevatedButton.styleFrom(
-          primary: Colors.orange[900],
-          onPrimary: Colors.white,
-          shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(20.0),
-          ),
-        ),
+        style: btnStyle,
       ),
     );
   }

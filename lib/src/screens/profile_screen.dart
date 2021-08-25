@@ -3,7 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_designs/src/provider/auth_provider.dart';
-import 'package:ui_designs/src/utils/image_helper.dart';
+import 'package:ui_designs/src/screens/change_password.dart';
+import 'package:ui_designs/src/screens/choose_image_screen.dart';
+import 'package:ui_designs/src/screens/login.dart';
+import 'package:ui_designs/src/screens/edit_profile.dart';
+import 'package:ui_designs/src/widgets/custom_submit_button.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key key}) : super(key: key);
@@ -23,13 +28,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text("Profile"),
         centerTitle: true,
         actions: [
-          TextButton(
-              child: Text(
-                "Edit",
-                style: TextStyle(color: Colors.white),
+          IconButton(
+              icon: Icon(
+                Icons.edit_sharp,
+                color: Colors.white,
               ),
-              onPressed: () =>
-                  Provider.of<AuthProvider>(context, listen: false).logout())
+              onPressed: ()
+                  // => Provider.of<AuthProvider>(context, listen: false).logout(),
+              {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) {
+                  return EditProfile();
+                })
+                );
+              }
+              )
         ],
       ),
       resizeToAvoidBottomInset: false,
@@ -38,42 +51,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return data.busy ? Center(child: CircularProgressIndicator()) :  Container(
             width: double.infinity,
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          buildUserDetail(data),
-                          SizedBox(height: 80,),
-                          Divider(),
-                          buildNameSection(context,data),
-                          Divider(),
-                          buildEmailSection(context, data),
-                          Divider(),
-                          buildPhoneSection(context, data),
-                          Divider(),
-                          buildAddressSection(context, data),
-                          Divider(),
-                          buildLogoutSection(context, data),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Column(
+                    children: [
+                      Container(
+                        child: Column(
+                          children: [
+                            buildUserDetail(data),
+                            SizedBox(height: 80,),
+                            Divider(),
+                            buildNameSection(context,data),
+                            Divider(),
+                            buildEmailSection(context, data),
+                            Divider(),
+                            buildPhoneSection(context, data),
+                            Divider(),
+                            buildAddressSection(context, data),
+                            Divider(),
+                            buildChange(),
+                            Divider(),
+                            buildLogoutSection(context, data),
 
-                          /*   Text(
-                            "Profile",
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.orange[900]),
-                          ),*/
-
-                        ],
-                      ),
-                    )
-                  ],
-                )
-                // customHeaderDecoration(),
-              ],
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                  // customHeaderDecoration(),
+                ],
+              ),
             ),
           );
         },
@@ -82,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
 
- Stack buildUserDetail(AuthProvider data) {
+ Widget buildUserDetail(AuthProvider data) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -102,7 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Theme.of(context).textTheme.headline6,),
             ],
           ),
-        )
+        ),
+
       ],
 
     );
@@ -131,35 +141,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   buildProfilePicture(BuildContext context, AuthProvider data) {
     final size = MediaQuery.of(context).size;
-    if (data.currentUser.photoURL != null)
-      return InkWell(
-        onTap: (){},
-        child: Container(
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(color: Colors.white,shape: BoxShape.circle),
+      return Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: Colors.white, shape: BoxShape.circle),
             child: CircleAvatar(
-              radius: 45,
+              radius: 40,
               backgroundImage: NetworkImage(data.currentUser.photoURL),
+            ),
           ),
-
-            /*color: Colors.orange,
-            width: size.width / 4,
-            height: size.height / 4.5,*/
-
-            /*decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white,
-              width: 5,),
-              image: DecorationImage(
-                fit: BoxFit.contain,
-                image: NetworkImage(
-                  data.currentUser.photoURL!= null ? data.currentUser.photoURL : getImage("https://assets.rappler.com/612F469A6EA84F6BAE882D2B94A4B421/img/4D2FE4280B7241769C3453EACEB5DC22/eiffel-tower-shutterstock-june-10-2020_4D2FE4280B7241769C3453EACEB5DC22.jpg")
-                )
-              )
-            ),*/
-          ),
-        );
-  }
+          Positioned(
+              top: -5,
+              right: -25,
+              child: RawMaterialButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (ctx) {
+                    return ChooseImageScreen();
+                  }));
+                },
+                fillColor: Colors.white,
+                child: Icon(Icons.camera_alt_outlined, color: Colors.deepOrange,
+                  size: 17,),
+                padding: EdgeInsets.all(8.0),
+                shape: CircleBorder(),
+              )),
+        ],
+      );
+    }
 
   buildNameSection(BuildContext context, AuthProvider data) {
     return ListTile(
@@ -179,7 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   buildPhoneSection(BuildContext context, AuthProvider data) {
     return ListTile(
-        title: Text('Add Phone', style: Theme.of(context).textTheme.subtitle1,),
+        title: Text('9857036932', style: Theme.of(context).textTheme.subtitle1,),
         leading: Icon(Icons.phone),
         onTap: () {
         });
@@ -187,9 +198,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   buildAddressSection(BuildContext context, AuthProvider data) {
     return ListTile(
-        title: Text('Add Address', style: Theme.of(context).textTheme.subtitle1,),
+        title: Text('Kathmandu, Nepal', style: Theme.of(context).textTheme.subtitle1,),
         leading: Icon(Icons.pin_drop),
         onTap: () {
+        });
+  }
+
+  buildChange() {
+    return ListTile(
+        title: Text('Change Password', style: Theme.of(context).textTheme.subtitle1,),
+        leading: Icon(Icons.remove_red_eye),
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context){
+                return ChangePassword();
+          }));
         });
   }
 
@@ -197,7 +220,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return ListTile(
         title: Text("Logout", style: Theme.of(context).textTheme.subtitle1,),
         leading: Icon(Icons.logout),
-        onTap: () {
-        });
+        onTap: () => Provider.of<AuthProvider>(context, listen: false).logout()
+
+    );
   }
+
+
+    Widget buildChangePassword() {
+      return Container(
+        height: 40,
+        width: double.infinity,
+        child: TextButton(
+          onPressed: () {},
+          child: Text("Change Password", style: TextStyle(fontSize: 16, color: Colors.grey,),),
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.all(5),
+            primary: Colors.green,
+          ),
+        ),
+      );
+    }
 }
+
+
