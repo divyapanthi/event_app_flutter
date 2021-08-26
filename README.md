@@ -1,6 +1,6 @@
-# ui_designs
+# event_app
 
-A new Flutter project that has several UIs for useful pages
+A new Flutter project that helps manage events.
 
 ## Getting Started
 
