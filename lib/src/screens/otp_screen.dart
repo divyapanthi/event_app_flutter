@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
-import 'package:ui_designs/src/widgets/custom_submit_button.dart';
+import 'package:ui_designs/src/widgets/custom_button.dart';
 import 'package:ui_designs/src/widgets/otp_form.dart';
 
 class OTPScreen extends StatelessWidget {
@@ -43,7 +43,7 @@ class OTPScreen extends StatelessWidget {
                             SizedBox(height: 30,),
                             OTPForm(),
                             SizedBox(height: 30,),
-                            SubmitButton(buttonText: "Verify")
+                            CustomButton(buttonText: "Verify")
                           ],
                         ),
                       ),

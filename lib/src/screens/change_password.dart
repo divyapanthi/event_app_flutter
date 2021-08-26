@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_designs/src/widgets/custom_submit_button.dart';
+import 'package:ui_designs/src/widgets/custom_button.dart';
 import 'package:ui_designs/src/widgets/custom_textfield.dart';
 
 class ChangePassword extends StatelessWidget {
@@ -12,18 +12,21 @@ class ChangePassword extends StatelessWidget {
       appBar: AppBar(
         title: Text("Change Password"),
         leading: BackButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.of(context).pop();
           },
         ),
       ),
       body: Container(
           padding: EdgeInsets.all(30),
-          child: Column(
+          child: ListView(
             children: [
-              SizedBox(height: 20,),
+              ClipRect(child: Image.network("https://i.pcmag.com/imagery/articles/06r3O9TGIbCXQhR7C69f1vE-10..1617039239.jpg")),
+              SizedBox(
+                height: 50,
+              ),
               CustomTextField(
-                  placeholder: "Old Password",
+                placeholder: "Old Password",
                 isPasswordTextField: true,
               ),
               CustomTextField(
@@ -34,30 +37,34 @@ class ChangePassword extends StatelessWidget {
                 placeholder: "Confirm New Password",
                 isPasswordTextField: true,
               ),
-              SubmitButton(buttonText: "Save", width: double.infinity , onPressed: () => Navigator.of(context).pop(),btnStyle: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                onPrimary: Colors.white,
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                )
-              )
-                ,),
-              SizedBox(height: 14,),
-              SubmitButton(buttonText: "Cancel", width: double.infinity, onPressed: () => Navigator.of(context).pop(),
-                btnStyle: ElevatedButton.styleFrom(
-                    primary: Colors.red,
-                    onPrimary: Colors.white,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(20.0),
-                    )
-                ),
-              )
-
+              buildButtons(context),
             ],
+          )),
+    );
+  }
+
+  Widget buildButtons(BuildContext context) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: CustomButton(
+              buttonText: "Save",
+              onPrimaryColor: Colors.green,
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+          SizedBox(width:20,),
+          Expanded(
+            child: CustomButton(
+              buttonText: "Cancel",
+              onPrimaryColor: Colors.black54,
+              onPressed: () => Navigator.of(context).pop(),
+            ),
           )
-
+        ],
       ),
-
     );
   }
 }

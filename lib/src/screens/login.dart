@@ -7,7 +7,7 @@ import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
 import 'package:ui_designs/src/provider/auth_provider.dart';
 import 'package:ui_designs/src/screens/forgot_password.dart';
 import 'package:ui_designs/src/screens/signup.dart';
-import 'package:ui_designs/src/widgets/custom_submit_button.dart';
+import 'package:ui_designs/src/widgets/custom_button.dart';
 import 'package:ui_designs/src/widgets/custom_textform_field.dart';
 import '../core/validators/global_validator.dart';
 
@@ -112,14 +112,13 @@ class _LoginState extends State<Login> {
                             SizedBox(
                               height: 30,
                             ),
-                            SubmitButton(
+                            CustomButton(
                               buttonText: "Login",
-                              width: double.infinity,
+                              width: 200,
                               onPressed: () {
                                 formkey.currentState.validate();
                                 Provider.of<AuthProvider>(context, listen: false).signUpWithEmailandPassword(email, password);
                               },
-                              btnStyle: CustomButtonStyle(),
                             ),
                             SizedBox(height: 16),
                             Text("Or login with", style: TextStyle(color: Colors.grey),),
@@ -136,12 +135,6 @@ class _LoginState extends State<Login> {
                                       await Provider.of<AuthProvider>(context,
                                           listen: false)
                                           .googleLogin()),
-                                  // child: SignInButton(
-                                  //   Buttons.Google,
-                                  //   // mini: true,
-                                  //   onPressed: () async =>
-                                  //       await launch("https://accounts.google.com/"),
-                                  // ),
                                 ),
                                 SizedBox(width: 2),
                                 Container(
@@ -155,14 +148,8 @@ class _LoginState extends State<Login> {
                                           listen: false)
                                           .signUpWithFacebook()),
                                 ),
-                                // child: SignInButton(
-                                //   Buttons.Facebook,
-                                //   // mini: true,
-                                //   onPressed: () async =>
-                                //       await launch("https://www.facebook.com"),
-                                // ),
-                              ],
-                            ),
+
+                            ]),
                             SizedBox(
                               height: 8,
                             ),

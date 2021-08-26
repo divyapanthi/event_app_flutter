@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_designs/src/core/constant/custom_form_decoration.dart';
 import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
 import 'package:ui_designs/src/screens/otp_screen.dart';
-import 'package:ui_designs/src/widgets/custom_submit_button.dart';
+import 'package:ui_designs/src/widgets/custom_button.dart';
 import 'package:ui_designs/src/widgets/custom_textform_field.dart';
 import '../core/validators/global_validator.dart';
 
@@ -58,7 +58,7 @@ class ForgotPassword extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 30,),
-                          SubmitButton(buttonText: "Continue", onPressed: () {
+                          CustomButton(buttonText: "Continue", onPressed: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (ctx) {
                             return OTPScreen();

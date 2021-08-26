@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ui_designs/src/screens/login.dart';
 
 
 class AuthProvider extends ChangeNotifier {
@@ -18,11 +17,11 @@ class AuthProvider extends ChangeNotifier {
   final _googleSignIn = GoogleSignIn();
   final _facebookLogin = FacebookLogin();
 
-  bool _busy = false;
-  bool get busy => _busy;
+  bool _isWaiting = false;
+  bool get isWaiting => _isWaiting;
 
   void setBusy(bool val){
-    _busy = val;
+    _isWaiting = val;
     notifyListeners();
   }
 
@@ -117,7 +116,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
 
-  Future<void> logout() async {
+  logout() async {
     await Future.wait(
         [_googleSignIn.signOut(), _facebookLogin.logOut(), _auth.signOut()]);
     _currentUser = null;

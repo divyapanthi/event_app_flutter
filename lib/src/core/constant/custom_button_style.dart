@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-CustomButtonStyle(){
+customButtonStyle(){
   return ElevatedButton.styleFrom(
     primary: Colors.orange[900],
     onPrimary: Colors.white,

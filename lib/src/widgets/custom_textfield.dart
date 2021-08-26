@@ -7,8 +7,7 @@ class CustomTextField extends StatefulWidget {
 
   const CustomTextField(
   {Key key,
-  @required this.labelText,
-  @required this.placeholder,
+  this.labelText, this.placeholder,
   this.isPasswordTextField,
 
   }) : super(key: key);

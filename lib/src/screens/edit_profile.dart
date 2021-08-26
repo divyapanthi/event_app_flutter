@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_designs/src/widgets/custom_submit_button.dart';
+import 'package:ui_designs/src/widgets/custom_button.dart';
 import 'package:ui_designs/src/widgets/custom_textfield.dart';
 
 class EditProfile extends StatefulWidget {
@@ -51,25 +51,27 @@ class _EditProfileState extends State<EditProfile> {
               isPasswordTextField: false,
             ),
 
-            SubmitButton(buttonText: "Save", width: double.infinity , onPressed: () => Navigator.of(context).pop(),
-              btnStyle: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                onPrimary: Colors.white,
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                )
-            )
-              ,),
-            SizedBox(height: 14,),
-            SubmitButton(buttonText: "Cancel", width: double.infinity, onPressed: () => Navigator.of(context).pop(),
-              btnStyle: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                  onPrimary: Colors.white,
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20.0),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    buttonText: "Save",
+                    onPrimaryColor: Colors.green,
+                    width: 10,
+                    onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+                SizedBox(width:20,),
+                Expanded(
+                    child: CustomButton(
+                      buttonText: "Cancel",
+                      onPrimaryColor: Colors.black54,
+                      width: double.infinity,
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
                   )
-              ),
-            )
+              ],
+            ),
 
           ],
         )

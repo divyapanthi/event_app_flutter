@@ -19,7 +19,7 @@ class _ChooseImageScreenState extends State<ChooseImageScreen> {
               height: 300,
               width: 300,
               decoration: BoxDecoration(
-                image: const DecorationImage(
+                image: DecorationImage(
                   image: NetworkImage("https://www.pngitem.com/pimgs/m/33-336751_facebook-camera-icon-png-transparent-png.png"),
                   fit: BoxFit.fill,
                 ),
@@ -28,10 +28,11 @@ class _ChooseImageScreenState extends State<ChooseImageScreen> {
                 icon: Icon(
                   Icons.camera_alt_outlined,
                 ),
+                onPressed: (){},
               ),
             )
           ],
-        )
+        ),
       ),
     );
   }

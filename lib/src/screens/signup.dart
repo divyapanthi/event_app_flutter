@@ -4,7 +4,7 @@ import 'package:ui_designs/src/core/constant/custom_button_style.dart';
 import 'package:ui_designs/src/core/constant/custom_form_decoration.dart';
 import 'package:ui_designs/src/core/constant/custom_header_decoration.dart';
 import 'package:ui_designs/src/screens/login.dart';
-import 'package:ui_designs/src/widgets/custom_submit_button.dart';
+import 'package:ui_designs/src/widgets/custom_button.dart';
 import 'package:ui_designs/src/widgets/custom_textform_field.dart';
 import '../core/validators/global_validator.dart';
 
@@ -86,10 +86,10 @@ class _SignUpState extends State<SignUp> with GlobalValidator {
                           SizedBox(
                             height: 25,
                           ),
-                          SubmitButton(
+                          CustomButton(
                             buttonText: "Submit",
-                            btnStyle: CustomButtonStyle(),
-                            width: double.infinity,
+                            width: 200,
+                            btnStyle: customButtonStyle(),
                             onPressed: () {
                               if (!formkey.currentState.validate()) return;
                               formkey.currentState.save();
