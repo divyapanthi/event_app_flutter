@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_designs/src/screens/change_password.dart';
 import 'package:ui_designs/src/widgets/custom_button.dart';
 import 'package:ui_designs/src/widgets/custom_textfield.dart';
 
@@ -64,12 +65,16 @@ class _EditProfileState extends State<EditProfile> {
                 SizedBox(width:20,),
                 Expanded(
                     child: CustomButton(
-                      buttonText: "Cancel",
+                      buttonText: "Change Password",
                       onPrimaryColor: Colors.black54,
                       width: double.infinity,
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  )
+                      onPressed: () {
+                        Navigator.of(context).push(
+                        MaterialPageRoute(
+                        builder: (context) {
+                        return ChangePassword();
+                      },));}),
+                  ),
               ],
             ),
 

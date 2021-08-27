@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_designs/src/provider/auth_provider.dart';
-import 'package:ui_designs/src/screens/change_password.dart';
-import 'package:ui_designs/src/screens/choose_image_screen.dart';
+import 'package:ui_designs/src/screens/choose_image.dart';
 import 'package:ui_designs/src/screens/edit_profile.dart';
 import 'package:ui_designs/src/widgets/custom_list_tile.dart';
 
@@ -85,17 +83,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                     Divider(),
                                     CustomListTile(
-                                        title: "Change Password",
-                                        iconData: Icons.visibility,
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) {
-                                            return ChangePassword();
-                                          }));
-                                        }),
-                                    Divider(),
-                                    CustomListTile(
                                       title: "Logout",
                                       iconData: Icons.logout,
                                       onTap: () {
@@ -159,8 +146,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           bottomRight: Radius.circular(40),
           bottomLeft: Radius.circular(40),
         ),
-        child: Image.network(
-          "https://img.huffingtonpost.com/asset/5df949c6240000e70c5a39da.jpeg?cache=k8iXwHWWIe&ops=1778_1000",
+        child: Image.asset(
+          "assets/images/coverpic.jpeg",
           height: size.height / 4,
           width: size.width,
           fit: BoxFit.fill,
@@ -193,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (ctx) {
-                        return ChooseImageScreen();
+                        return ChoseImage();
                       }));
                     },
                     fillColor: Colors.white,

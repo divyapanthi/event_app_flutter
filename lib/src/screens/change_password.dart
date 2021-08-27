@@ -19,9 +19,16 @@ class ChangePassword extends StatelessWidget {
       ),
       body: Container(
           padding: EdgeInsets.all(30),
-          child: ListView(
+          child: Column(
             children: [
-              ClipRect(child: Image.network("https://i.pcmag.com/imagery/articles/06r3O9TGIbCXQhR7C69f1vE-10..1617039239.jpg")),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(50),
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
+                  child: Image.asset("assets/images/password.jpg")),
               SizedBox(
                 height: 50,
               ),
